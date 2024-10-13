@@ -1,0 +1,73 @@
+#include <stdio.h>
+
+float celsius_to_fahrenheit(float c) {
+    return (c * 9 / 5) + 32;
+}
+
+float celsius_to_kelvin(float c) {
+    return c + 273.15;
+}
+
+float fahrenheit_to_celsius(float f) {
+    return (f - 32) * 5 / 9;
+}
+
+float fahrenheit_to_kelvin(float f) {
+    return fahrenheit_to_celsius(f) + 273.15;
+}
+
+float kelvin_to_celsius(float k) {
+    return k - 273.15;
+}
+
+float kelvin_to_fahrenheit(float k) {
+    return (kelvin_to_celsius(k) * 9 / 5) + 32;
+}
+
+void convert_temperature(float value, char scale_from, char scale_to) {
+    float converted_value;
+
+    if (scale_from == 'C') {
+        if (scale_to == 'F') {
+            converted_value = celsius_to_fahrenheit(value);
+        } else if (scale_to == 'K') {
+            converted_value = celsius_to_kelvin(value);
+        }
+    } else if (scale_from == 'F') {
+        if (scale_to == 'C') {
+            converted_value = fahrenheit_to_celsius(value);
+        } else if (scale_to == 'K') {
+            converted_value = fahrenheit_to_kelvin(value);
+        }
+    } else if (scale_from == 'K') {
+        if (scale_to == 'C') {
+            converted_value = kelvin_to_celsius(value);
+        } else if (scale_to == 'F') {
+            converted_value = kelvin_to_fahrenheit(value);
+        }
+    } else {
+        printf("Invalid scale entered.\n");
+        return;
+    }
+
+    printf("%.2f %c is equal to %.2f %c\n", value, scale_from, converted_value, scale_to);
+}
+
+int main() {
+    float value;
+    char scale_from, scale_to;
+
+    printf("Temperature Converter\n");
+    printf("Available scales: Celsius (C), Fahrenheit (F), Kelvin (K)\n");
+
+    printf("Enter the temperature value: ");
+    scanf("%f", &value);
+    printf("Enter the scale of the input value (C/F/K): ");
+    scanf(" %c", &scale_from);
+    printf("Enter the scale you want to convert to (C/F/K): ");
+    scanf(" %c", &scale_to);
+
+    convert_temperature(value, scale_from, scale_to);
+
+    return 0;
+}
